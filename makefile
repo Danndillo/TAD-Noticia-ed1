@@ -10,4 +10,9 @@ ListaCabCau.o: ListaCabCau.c
 ListaEncadeada.o: ListaEncadeada.c
 		gcc -c ListaEncadeada.c
 clean:
-		del main.o Noticia.o ListaCabCau.o ListaEncadeada.o trabEd1.exe
+		ifeq ($(OS),Windows_NT)
+			del /Q *.o trabEd1.exe
+		else
+			rm -f *.o trabEd1
+		endif
+.PHONY: clean
