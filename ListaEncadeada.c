@@ -1,70 +1,80 @@
-typedef struct data {
-    int dia;
-    int mes;S
-    int ano;
-} Data;
+/*#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "ListaEncadeada.h"
 
-typedef enum tipoClassificacao {
-    EMANALISE = 1,
-    CONFIAVEL,
-    SUSPEITA
-} TypeClass;
-
-
-typedef struct noticia{
-    int id;
-    Data data;
-    char titulo[50];
-    char conteudo[500];
-    char fonte[100];
-    TypeClass tipo;
-} Noticia;
-
-Noticia* criarNoticia(int newId, Data newData, char newTitulo[], char newConteudo[], char newFonte[], TypeClass newClassificacao){
-  Noticia *novo = (Noticia *) malloc(sizeof(Noticia));
-  if(novo !=NULL){
-    novo->id = newId;
-    novo->data = newData;
-    strcpy(novo->titulo, newTitulo);
-    strcpy(novo->conteudo, newConteudo);
-    strcpy(novo->fonte, newFonte);
-    novo->tipo = newClassificacao;
-  } else {
-
-  }
-  
-  
-  return novo;
+void criarLista(NoListaEncad **l){
+     *l=NULL;
 }
 
-void imprimirNoticia(Noticia* n){
-  if(n!=NULL){
-    printf("#%d - %s\n", n->id, n->titulo);
-    printf("\n%d/%d/%d\n",n->data.dia,n->data.mes,n->data.ano);
-    printf("%s\n\n", n->conteudo);
-    printf("Fonte: %s\n", n->fonte);
-    switch(n->tipo){
-        case 1:
-            printf("Tipo: Em Analise");
-            break;
-        case 2:
-            printf("Tipo: Confiavel");
-            break;
-        case 3:
-            printf("Tipo: Suspeita");
-            break;
-        default:
-            printf("Tipo: Não Determinado");
-            break;
+int estaVazio(NoListaEncad **l){
+    return *l == NULL;
+}
+
+void imprimeLista(NoListaEncad **l){
+    if(!estaVazio(l)){
+        for(NoLista*p = *l;p!=NULL;p = p->prox){
+            imprimirNoticia(&(p->info));
+        } printf("\n");
+    } else{
+        printf("Esta Vazia \n");
+    }
+}
+
+int contarElementos(NoListaEncad **l){
+    int tot = 0;
+    NoLista *p;
+    
+    for(p = *l; p!=NULL; p= p->prox)
+        tot++;
+
+    return tot;
+}
+
+void inserirOrdenado(NoListaEncad **l, Noticia v){
+    NoLista *p, *ant = NULL;
+    for(p=*l; p!=NULL && p->info < v; p = p->prox){
+        ant = p;
+    }
+        NoLista* novo = (NoListaEncad *) malloc(sizeof(NoListaEncad));
+        if(novo != NULL){
+            novo->info = v;
+            novo->prox = p;
+        }
+        if(ant == NULL)
+            *l = novo;
+        else
+            ant->prox = novo;
     }
 
-    printf("\n----------------------\n");
-    
-  } else
-  printf("Nada encontrado!\n");
+void liberarLista(NoListaEncad **l){
+    NoLista *p, *temp;
+    for(p = *l; p!=NULL ; p=temp){
+        temp = p->prox;
+        free(p);
+    }
+    *l = NULL;
 }
 
-Noticia* liberarNoticia(Noticia* n){
-  free(n);
-  return NULL;
+NoLista* buscaElemento(NoListaEncad **l, Noticia v){
+    if(!estaVazio(l)){
+        for(NoListaEncad*p = *l;p!=NULL;p = p->prox){
+            if(p->info == v)
+                return p;
+        } 
+        printf("Não encontrado!");
+        return NULL;
+    } else{
+        printf("Esta Vazia \n");
+        return NULL;
+    }
 }
+
+NoLista* ultimoElemento(NoListaEncad** l){
+    NoListaEncad *p, *ant=NULL;
+    
+    for(p = *l;p!=NULL;p=p->prox){
+        ant = p;
+    }
+    return ant;
+}*/

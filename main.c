@@ -12,6 +12,7 @@ int main(){
 
     int opt=0;
     Lista cabCau;
+     
     criarLista(&cabCau);
 
     while(opt !=8){
@@ -34,7 +35,7 @@ int main(){
             case 1:
                 Data newData;
                 char newTitulo[50], newConteudo[500], newFonte[100];
-                TypeClass newClassificacao;
+                TypeClass newClassificacao = 1;
 
                 printf("Insira o título da noticia: \n> ");
                 scanf(" %[^\n]", newTitulo);
@@ -42,9 +43,7 @@ int main(){
                 scanf(" %[^\n]", newConteudo);
                 printf("\nInsira o fonte da noticia: \n> ");
                 scanf(" %[^\n]", newFonte);
-                printf("\n A noticia e:\n1 - Em analise | 2 - Confiavel | 3 - Suspeita\n> ");
-                scanf("%d", &newClassificacao);
-                printf("Digite o dia, mes e ano da noticia: \n> ");
+                printf("Digite o dia, mes e ano da noticia (Exemplo: 25 12 2026): \n> ");
                 scanf("%d %d %d", &newData.dia,&newData.mes, &newData.ano);
 
                 Noticia *novaNot = criarNoticia(newData, newTitulo, newConteudo, newFonte, newClassificacao);
@@ -58,8 +57,13 @@ int main(){
                 getchar();
                 break;
 
+            case 2:
+                int searchID;
+                printf("Digite o ID da noticia: \n> ");
+                scanf("%d", &searchID);
+                removerNoticiaID(&cabCau, searchID);
+                break;
             /*case :
-            case :
             case :
             case :
             case :

@@ -7,7 +7,7 @@
 #include "Noticia.h"
 
 typedef struct noLista{
-    Noticia noticia;
+    Noticia info;
     struct noLista* prox;
 } NoLista;
 
