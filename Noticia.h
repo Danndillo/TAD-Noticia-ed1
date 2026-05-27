@@ -26,7 +26,7 @@ typedef struct noticia{
     TypeClass tipo;
 } Noticia;
 
-Noticia* criarNoticia(int newId, Data newData, char newTitulo[], char newConteudo[], char newFonte[], TypeClass newClassificacao);
+Noticia* criarNoticia(Data newData, char newTitulo[], char newConteudo[], char newFonte[], TypeClass newClassificacao);
 void imprimirNoticia(Noticia* n);
 Noticia* liberarNoticia(Noticia* n);
 

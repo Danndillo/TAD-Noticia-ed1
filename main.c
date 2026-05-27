@@ -6,6 +6,7 @@
 #include "ListaCabCau.h"
 
 //setlocale(LC_ALL, "pt-br");
+void limparTela();
 
 int main(){
 
@@ -14,6 +15,7 @@ int main(){
     criarLista(&cabCau);
 
     while(opt !=8){
+        limparTela();
         printf("----------------MENU------------------\n");
         printf("1 - Adicionar nova noticia\n");
         printf("2 - Remover notícia pendente por id\n");
@@ -30,7 +32,30 @@ int main(){
 
         switch(opt){
             case 1:
-                printf("legal");
+                Data newData;
+                char newTitulo[50], newConteudo[500], newFonte[100];
+                TypeClass newClassificacao;
+
+                printf("Insira o título da noticia: \n> ");
+                scanf(" %[^\n]", newTitulo);
+                printf("\nInsira o conteudo da noticia: \n> ");
+                scanf(" %[^\n]", newConteudo);
+                printf("\nInsira o fonte da noticia: \n> ");
+                scanf(" %[^\n]", newFonte);
+                printf("\n A noticia e:\n1 - Em analise | 2 - Confiavel | 3 - Suspeita\n> ");
+                scanf("%d", &newClassificacao);
+                printf("Digite o dia, mes e ano da noticia: \n> ");
+                scanf("%d %d %d", &newData.dia,&newData.mes, &newData.ano);
+
+                Noticia *novaNot = criarNoticia(newData, newTitulo, newConteudo, newFonte, newClassificacao);
+
+                inserirNoticiaInicio(&cabCau, *novaNot);
+                liberarNoticia(novaNot);
+
+                printf("\nNoticia adicionada com sucesso!");
+                printf("\nPressione Enter para continuar...");
+                getchar(); 
+                getchar();
                 break;
 
             /*case :
@@ -56,4 +81,12 @@ int main(){
     inserirNoticiaInicio(&cabCau, *novaNot);
     imprimirLista(&cabCau);*/
     return 0;
+}
+
+void limparTela() {
+#ifdef _WIN32
+	system("cls"); // Windows
+#else
+	system("clear"); // Linux/Mac
+#endif
 }
