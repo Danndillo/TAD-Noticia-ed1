@@ -4,6 +4,7 @@
 #include <locale.h>
 #include "Noticia.h"
 #include "ListaCabCau.h"
+#include "ListaEncadeada.h"
 
 //setlocale(LC_ALL, "pt-br");
 void limparTela();
@@ -11,9 +12,12 @@ void limparTela();
 int main(){
 
     int opt=0;
+    char keyword[100];
     Lista cabCau;
+    NoListaEncad **ListaEncad;
      
     criarLista(&cabCau);
+    criarListaEncad(ListaEncad);
 
     while(opt !=8){
         limparTela();
@@ -30,6 +34,7 @@ int main(){
         printf("-------------------------------------------\n\n> ");
 
         scanf("%d", &opt); 
+        limparTela();
 
         switch(opt){
             case 1:
@@ -43,15 +48,14 @@ int main(){
                 scanf(" %[^\n]", newConteudo);
                 printf("\nInsira o fonte da noticia: \n> ");
                 scanf(" %[^\n]", newFonte);
-                printf("Digite o dia, mes e ano da noticia (Exemplo: 25 12 2026): \n> ");
-                scanf("%d %d %d", &newData.dia,&newData.mes, &newData.ano);
+                printf("Digite o dia, mes e ano da noticia (Exemplo: 25/12/2026): \n> ");
+                scanf("%d/%d/%d", &newData.dia,&newData.mes, &newData.ano);
 
                 Noticia *novaNot = criarNoticia(newData, newTitulo, newConteudo, newFonte, newClassificacao);
 
                 inserirNoticiaInicio(&cabCau, *novaNot);
                 liberarNoticia(novaNot);
 
-                printf("\nNoticia adicionada com sucesso!");
                 printf("\nPressione Enter para continuar...");
                 getchar(); 
                 getchar();
@@ -62,12 +66,65 @@ int main(){
                 printf("Digite o ID da noticia: \n> ");
                 scanf("%d", &searchID);
                 removerNoticiaID(&cabCau, searchID);
+        
+                printf("\nPressione Enter para continuar...");
+                getchar(); 
+                getchar();
                 break;
-            /*case :
-            case :
-            case :
-            case :
-            case :*/
+            case 3:
+                
+                printf("Digite a palavra-chave:\n> ");
+                scanf(" %[^\n]", keyword);
+
+                removerNoticiaKeyword(ListaEncad, keyword);
+                printf("\nPressione Enter para continuar...");
+                getchar(); 
+                getchar();
+                break;
+            case 4:
+                
+                printf("Digite a palavra-chave:\n> ");
+                scanf(" %[^\n]", keyword);
+
+                imprimirNoticia(buscarKeyword(&cabCau, keyword));
+                printf("\nPressione Enter para continuar...");
+                getchar(); 
+                getchar();
+                break;
+
+            case 5:
+                int subOpt;
+                printf("Qual tipo de noticia deseja ver?\n 1 - Pendentes || 2 - Verificadas || 3 - Ambas\n> ");
+                scanf("%d", &subOpt);
+                
+                if(subOpt != 2){
+                    printf("Pendentes: \n");
+                    imprimirLista(&cabCau);
+                }
+                if(subOpt != 1){
+                    printf("Verificadas: \n");
+                    imprimeListaEncad(ListaEncad);
+                }
+                printf("\nPressione Enter para continuar...");
+                getchar(); 
+                getchar();
+                break;
+
+            case 6:
+                classificarNoticia(&cabCau, ListaEncad);
+
+                printf("\nPressione Enter para continuar...");
+                getchar(); 
+                getchar();
+                break;
+            
+            case 7:
+                qtdNoticias(&cabCau, ListaEncad);
+                printf("\nPressione Enter para continuar...");
+                getchar(); 
+                getchar();
+                break;
+
             case 8:
                 break;
             default:
@@ -75,22 +132,14 @@ int main(){
                 break;
         }
     }
-    /*
-    Data temp = {.dia = 1, .mes = 1, .ano = 2005};
-    Noticia *novaNot = criarNoticia(1, temp, "Escala 6x1", "Bluebird Bluebird Bluebird Bluebird Bluebird", "G1", 4);
     
-    inserirNoticiaInicio(&cabCau, *novaNot);
-    liberarNoticia(novaNot);
-    novaNot = criarNoticia(2, temp, "Escala 5x2", "Helter Skelter", "Uol", 1);
-    inserirNoticiaInicio(&cabCau, *novaNot);
-    imprimirLista(&cabCau);*/
     return 0;
 }
 
 void limparTela() {
 #ifdef _WIN32
-	system("cls"); // Windows
+	system("cls");
 #else
-	system("clear"); // Linux/Mac
+	system("clear");
 #endif
 }

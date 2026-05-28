@@ -8,17 +8,18 @@
 
 typedef struct nolistaencad{
     Noticia info;
-    struct nolista* prox;
-    struct nolista* ant;
+    struct nolistaencad* prox;
 } NoListaEncad;
 
-void criarLista(NoListaEncad **l);
-int estaVazio(NoListaEncad **l);
-void imprimeLista(NoListaEncad **l);
-int contarElementos(NoListaEncad **l);
-void inserirOrdenado(NoListaEncad **l, Noticia v);
-void liberarLista(NoListaEncad **l);
-NoListaEncad* buscaElemento(NoListaEncad **l, Noticia v);
-NoListaEncad* ultimoElemento(NoListaEncad** l)
-
+void criarListaEncad(NoListaEncad **l);
+int estaVazioEncad(NoListaEncad **l);
+void imprimeListaEncad(NoListaEncad **l);
+void removerNoticiaKeyword(NoListaEncad **l, char keyword[]);
+void inserirNoticiaEncad(NoListaEncad **l, Noticia v);
+/*int contarElementosEncad(NoListaEncad **l);
+void inserirOrdenadoEncad(NoListaEncad **l, Noticia v);
+void liberarListaEncad(NoListaEncad **l);
+NoListaEncad* buscaElementoEncad(NoListaEncad **l, Noticia v);
+NoListaEncad* ultimoElementoEncad(NoListaEncad** l)
+*/
 #endif //LISTAENCADEADA_H
