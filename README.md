@@ -1,6 +1,6 @@
 # SISTEMA GERENCIADOR DE NOTÍCIAS
 ## Autores 
-- [Arthur Torres Gurgel](https://github.com/Danndillo/)
+- [Arthur Torres Gurgel](https://github.com/torrestuh/)
 - [Danillo de Paula Carvalho](https://github.com/Danndillo/)
 
 ## Contextualização
