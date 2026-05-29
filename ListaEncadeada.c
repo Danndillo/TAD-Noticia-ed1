@@ -57,6 +57,18 @@ void inserirNoticiaEncad(NoListaEncad **l, Noticia v){
     }
 }
 
+void liberarListaEncad(NoListaEncad **l){
+    if(l == NULL) 
+        return;
+    
+    NoListaEncad *p, *temp;
+    for(p = *l; p!=NULL ; p=temp){
+        temp = p->prox;
+        free(p);
+    }
+    *l = NULL;
+}
+
 /*#include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -106,14 +118,7 @@ void inserirOrdenado(NoListaEncad **l, Noticia v){
             ant->prox = novo;
     }
 
-void liberarLista(NoListaEncad **l){
-    NoLista *p, *temp;
-    for(p = *l; p!=NULL ; p=temp){
-        temp = p->prox;
-        free(p);
-    }
-    *l = NULL;
-}
+
 
 NoLista* buscaElemento(NoListaEncad **l, Noticia v){
     if(!estaVazio(l)){

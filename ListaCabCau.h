@@ -22,9 +22,8 @@ int estaVazia(Lista *l);
 void inserirNoticiaInicio(Lista* l, Noticia v);
 void imprimirLista(Lista *l);
 void classificarNoticia(Lista *l, NoListaEncad **Encad);
-void removerNoticiaID(Lista *l, int id);
+int removerNoticiaID(Lista *l, int id);
 Noticia* buscarKeyword(Lista *l, char key[]);
-void imprimirTodasNoticias(Lista *l);
 void qtdNoticias(Lista *l, NoListaEncad **Encad);
 void liberarLista(Lista *l);
 

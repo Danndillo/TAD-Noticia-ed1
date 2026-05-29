@@ -24,27 +24,32 @@ void inserirNoticiaInicio(Lista* l, Noticia v){
 }
 
 void imprimirLista(Lista *l){
-  for(NoLista *p = l->cabeca->prox; p != l->cauda; p = p->prox){
-    imprimirNoticia(&(p->info));
-    printf("\n");
+  if(estaVazia(l)){
+    printf("A lista esta vazia!\n");
+  } else {
+    for(NoLista *p = l->cabeca->prox; p != l->cauda; p = p->prox){
+      imprimirNoticia(&(p->info));
+      printf("\n");
+    }
   }
 }
 
-void removerNoticiaID(Lista *l, int id){
+int removerNoticiaID(Lista *l, int id){
   if(estaVazia(l))
-    printf("A lista esta vazia!\n");
+    return 0;
   else {
     NoLista *p, *aux = l->cabeca;
     for(p = l->cabeca->prox; p != l->cauda && p->info.id != id; p = p->prox){
       aux = p;
     } 
 
-    if(p == l->cauda)
+    if(p == l->cauda){
       printf("Nao encontrado");
-    else {
+      return 0;
+    } else {
       aux->prox = p->prox;
       free(p);
-      printf("Removida com sucesso!");
+      return 1;
     }
   }
 }
@@ -53,39 +58,46 @@ void classificarNoticia(Lista *l, NoListaEncad **Encad){
   if(estaVazia(l))
     printf("A lista esta vazia!\n");
   else {
-  for(NoLista *p = l->cabeca->prox, *proximo; p->prox != NULL; p = p->prox){
-    TypeClass newTypeClass;
+    for(NoLista *p = l->cabeca->prox, *proximo; p != l->cauda; p = p->prox){
+      TypeClass newTypeClass;
 
-    imprimirNoticia(&(p->info));
+      imprimirNoticia(&(p->info));
 
-    printf("\nQual a nova classificacao desta noticia?\n1 - Em Analise | 2 - Confiavel | 3 - Suspeita\n> ");
-    scanf("%d", &newTypeClass);
+      printf("\nQual a nova classificacao desta noticia?\n1 - Em Analise | 2 - Confiavel | 3 - Suspeita\n> ");
+      scanf("%d", &newTypeClass);
 
-    p->info.tipo = newTypeClass;
-    printf("\n");
+      p->info.tipo = newTypeClass;
+      printf("\n");
 
-    proximo = p->prox;
-    if(newTypeClass != 1){
-      inserirNoticiaEncad(Encad, p->info);
-      removerNoticiaID(l, p->info.id);
+      proximo = p->prox;
+
+      if(newTypeClass != 1){
+        inserirNoticiaEncad(Encad, p->info);
+        if(removerNoticiaID(l, p->info.id))
+          printf("Alteracao concluida\n");
+      }
     }
   }
 }
-}
 
 Noticia* buscarKeyword(Lista *l, char keyword[]){
-  NoLista *p;
-
-  for(p = l->cabeca->prox; p != l->cauda && !(strstr(p->info.titulo, keyword) || strstr(p->info.conteudo, keyword)); p = p->prox){
-    continue;
-  }
-  
-  if(p == l->cauda){
-    printf("Não Encontrado!");
+  if(estaVazia(l)){
+    printf("A lista esta vazia!\n");
     return NULL;
-  }
+  } else {
+    NoLista *p;
 
-  return &(p->info);
+    for(p = l->cabeca->prox; p != l->cauda && !(strstr(p->info.titulo, keyword) || strstr(p->info.conteudo, keyword)); p = p->prox){
+      continue;
+    }
+  
+    if(p == l->cauda){
+      printf("Não Encontrado!");
+      return NULL;
+    }
+
+    return &(p->info);
+  }
 }
 
 void qtdNoticias(Lista *l, NoListaEncad **Encad){
@@ -105,6 +117,19 @@ void qtdNoticias(Lista *l, NoListaEncad **Encad){
   printf("\nEm Analise: %d\nConfiaveis: %d\nSuspeitas: %d\n", analise, confiavel, suspeita);
 }
 
+void liberarLista(Lista *l){
+  if(l == NULL)
+    return;
+  NoLista *p = l->cabeca, *temp = NULL;
+
+  for(p = l->cabeca; p != NULL; p=temp){
+    temp = p->prox;
+    free(p);
+  }
+
+  l->cabeca = NULL;
+  l->cauda = NULL;
+}
 /*void removerNoticiaKey(Lista *l, char keyword[]){
   NoLista *p, *aux = l->cabeca;
   for(p = l->cabeca->prox; p != l->cauda && !(strstr(p->info.titulo, keyword) || strstr(p->info.conteudo, keyword)); p = p->prox){
@@ -132,7 +157,7 @@ void removerNoticia(Lista *l, Noticia v){
     liberarNoticia(p->info);
     free(p);
   }
-}*/
+}
 
 
 
@@ -143,8 +168,4 @@ Noticia* buscarID(Lista *l, char key[]){
 void imprimirTodasNoticias(Lista *l){
 
 }
-
-
-void liberarLista(Lista *l){
-
-}
+*/

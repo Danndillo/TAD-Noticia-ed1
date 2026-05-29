@@ -8,6 +8,7 @@
 
 //setlocale(LC_ALL, "pt-br");
 void limparTela();
+void pausarOSFriendly();
 
 int main(){
 
@@ -48,7 +49,7 @@ int main(){
                 scanf(" %[^\n]", newConteudo);
                 printf("\nInsira o fonte da noticia: \n> ");
                 scanf(" %[^\n]", newFonte);
-                printf("Digite o dia, mes e ano da noticia (Exemplo: 25/12/2026): \n> ");
+                printf("\nDigite o dia, mes e ano da noticia (Exemplo: 25/12/2026): \n> ");
                 scanf("%d/%d/%d", &newData.dia,&newData.mes, &newData.ano);
 
                 Noticia *novaNot = criarNoticia(newData, newTitulo, newConteudo, newFonte, newClassificacao);
@@ -56,20 +57,19 @@ int main(){
                 inserirNoticiaInicio(&cabCau, *novaNot);
                 liberarNoticia(novaNot);
 
-                printf("\nPressione Enter para continuar...");
-                getchar(); 
-                getchar();
+                pausarOSFriendly();
                 break;
 
             case 2:
                 int searchID;
                 printf("Digite o ID da noticia: \n> ");
                 scanf("%d", &searchID);
-                removerNoticiaID(&cabCau, searchID);
+                if(removerNoticiaID(&cabCau, searchID))
+                    printf("Removida com sucesso!");
+                else
+                    printf("Não foi possivel encontrar!\n");
         
-                printf("\nPressione Enter para continuar...");
-                getchar(); 
-                getchar();
+                pausarOSFriendly();
                 break;
             case 3:
                 
@@ -77,9 +77,7 @@ int main(){
                 scanf(" %[^\n]", keyword);
 
                 removerNoticiaKeyword(ListaEncad, keyword);
-                printf("\nPressione Enter para continuar...");
-                getchar(); 
-                getchar();
+                pausarOSFriendly();
                 break;
             case 4:
                 
@@ -87,9 +85,7 @@ int main(){
                 scanf(" %[^\n]", keyword);
 
                 imprimirNoticia(buscarKeyword(&cabCau, keyword));
-                printf("\nPressione Enter para continuar...");
-                getchar(); 
-                getchar();
+                pausarOSFriendly();
                 break;
 
             case 5:
@@ -105,35 +101,37 @@ int main(){
                     printf("Verificadas: \n");
                     imprimeListaEncad(ListaEncad);
                 }
-                printf("\nPressione Enter para continuar...");
-                getchar(); 
-                getchar();
+                pausarOSFriendly();
                 break;
 
             case 6:
                 classificarNoticia(&cabCau, ListaEncad);
-
-                printf("\nPressione Enter para continuar...");
-                getchar(); 
-                getchar();
+                pausarOSFriendly();
                 break;
             
             case 7:
                 qtdNoticias(&cabCau, ListaEncad);
-                printf("\nPressione Enter para continuar...");
-                getchar(); 
-                getchar();
+                pausarOSFriendly();
                 break;
 
             case 8:
+                liberarListaEncad(ListaEncad);
+                liberarLista(&cabCau);
                 break;
             default:
-                printf("Opcao invalida!\n");
+                printf("\nOPCAO INVALIDA!\n");
+                pausarOSFriendly();
                 break;
         }
     }
     
     return 0;
+}
+
+void pausarOSFriendly(){
+    printf("\nPressione Enter para continuar...");
+    getchar(); 
+    getchar();
 }
 
 void limparTela() {

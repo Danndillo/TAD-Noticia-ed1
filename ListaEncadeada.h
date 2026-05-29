@@ -16,9 +16,9 @@ int estaVazioEncad(NoListaEncad **l);
 void imprimeListaEncad(NoListaEncad **l);
 void removerNoticiaKeyword(NoListaEncad **l, char keyword[]);
 void inserirNoticiaEncad(NoListaEncad **l, Noticia v);
+void liberarListaEncad(NoListaEncad **l);
 /*int contarElementosEncad(NoListaEncad **l);
 void inserirOrdenadoEncad(NoListaEncad **l, Noticia v);
-void liberarListaEncad(NoListaEncad **l);
 NoListaEncad* buscaElementoEncad(NoListaEncad **l, Noticia v);
 NoListaEncad* ultimoElementoEncad(NoListaEncad** l)
 */
