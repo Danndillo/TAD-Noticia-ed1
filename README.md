@@ -15,30 +15,7 @@ O usuário é capaz de:
 - Remover por ID ou palavra-chave;
 - Buscar notícias por palavra-chave;
 - Visualizar e classificar as notícias cadastradas.
-## Rodando Localmente
 
-Clone o projeto
-
-```bash
-    git clone https://github.com/Danndillo/TAD-Noticia-ed1
-```
-
-Vá para o diretório do projeto
-
-```bash
-    cd TAD-Noticia-ed1
-```
-
-Compilar o projeto
-
-```bash
-    make
-```
-
-Execute o projeto
-```bash
-    ./trabEd1
-```
 ## Estrutura do Código
 O projeto está segmentado da seguinte forma:
 
@@ -68,3 +45,28 @@ Foram implementadas duas variações de listas encadeadas:
 | 6 | Classificar notícias | Altera classificação e move entre listas |
 | 7 | Quantidade de notícias por tipo | Quantidade por categoria (*Em Análise/Confiável/Suspeita*) |
 | 8 | Sair | Encerra o programa |
+
+## Rodando Localmente
+
+Clone o projeto
+
+```bash
+    git clone https://github.com/Danndillo/TAD-Noticia-ed1
+```
+
+Vá para o diretório do projeto
+
+```bash
+    cd TAD-Noticia-ed1
+```
+
+Compilar o projeto
+
+```bash
+    make
+```
+
+Execute o projeto
+```bash
+    ./trabEd1
+```
